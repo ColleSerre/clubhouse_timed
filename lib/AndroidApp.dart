@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'Home.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'Call.dart';
 
 class AndroidApp extends StatelessWidget {
@@ -10,9 +11,9 @@ class AndroidApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.light,
-        scaffoldBackgroundColor: Colors.orange[100],
+        scaffoldBackgroundColor: HexColor("#F0F0E4"),
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.orange[100],
+          backgroundColor: HexColor("#F0F0E4"),
         ),
       ),
       darkTheme: ThemeData(
@@ -46,7 +47,9 @@ class AndroidApp extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(3),
                       decoration: BoxDecoration(
-                          color: Colors.red, shape: BoxShape.circle),
+                        color: Colors.red,
+                        shape: BoxShape.circle,
+                      ),
                       child: Text("1"),
                     ))
               ],

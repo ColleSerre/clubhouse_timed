@@ -164,10 +164,89 @@ class AvatarCard extends StatelessWidget {
       CircleAvatar(
         backgroundColor: color[400],
       ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
+      CircleAvatar(
+        backgroundColor: color[400],
+      ),
     ];
-    avatarArr.length = random.nextInt(2) == 1
-        ? 15
-        : 16; // TODO: change placeholder values (15 and 16) to adapt to device dimensions
+    avatarArr.length = random.nextInt(2) == 1.0
+        ? dimensions.width ~/ 25
+        : dimensions.width ~/
+            26; // TODO: change placeholder values (15 and 16) to adapt to device dimensions
     return Container(
       decoration: BoxDecoration(
         color: color[200],

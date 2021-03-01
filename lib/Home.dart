@@ -4,6 +4,7 @@ import 'MenuCards.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Widget divider = Divider(color: Colors.transparent, height: 15);
     Size dimensions = MediaQuery.of(context).size;
     return ListView(
       padding: const EdgeInsets.all(15.0),
@@ -13,25 +14,25 @@ class Home extends StatelessWidget {
           color: Colors.deepOrange,
           topic: "Politics",
         ),
-        Divider(),
+        divider,
         AvatarCard(
           dimensions: dimensions,
           color: Colors.red,
           topic: "Gaming",
         ),
-        Divider(),
+        divider,
         AvatarCard(
           dimensions: dimensions,
           color: Colors.blue,
           topic: "Tech",
         ),
-        Divider(),
+        divider,
         AvatarCard(
           dimensions: dimensions,
           color: Colors.green,
           topic: "Fashion",
         ),
-        Divider()
+        divider,
       ],
     );
   }
