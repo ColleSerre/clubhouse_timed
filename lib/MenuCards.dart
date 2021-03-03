@@ -1,13 +1,14 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 // Version with title + description without CircleAvatar
 class RoomCard extends StatelessWidget {
-  final Size dimensions;
   final MaterialColor color;
-  RoomCard({this.dimensions, this.color});
+  RoomCard({this.color});
   @override
   Widget build(BuildContext context) {
+    final Size dimensions = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
         color: color[300],
@@ -76,185 +77,97 @@ class RoomCard extends StatelessWidget {
   }
 }
 
+// Version with CircleAvatar only (more original, a lot less like Clubhouse)
 class AvatarCard extends StatelessWidget {
-  final Size dimensions;
-  final MaterialColor color;
   List<Widget> avatarArr;
   final String topic;
   final Random random = new Random();
-  AvatarCard({this.dimensions, this.color, this.topic});
+  AvatarCard({this.topic});
   @override
   Widget build(BuildContext context) {
+    final Size dimensions = MediaQuery.of(context).size;
     avatarArr = [
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
       CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
-      ),
-      CircleAvatar(
-        backgroundColor: color[400],
+        backgroundColor: Colors.green[300],
       ),
     ];
-    avatarArr.length = random.nextInt(2) == 1.0
-        ? dimensions.width ~/ 25
-        : dimensions.width ~/
-            26; // TODO: change placeholder values (15 and 16) to adapt to device dimensions
+    // TODO: change placeholder values (15 and 16) to adapt to device dimensions
     return Container(
       decoration: BoxDecoration(
-        color: color[200],
-        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
       ),
       child: SizedBox(
-        width: dimensions.width,
-        height: dimensions.height / 4,
+        height: 270,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
@@ -266,9 +179,10 @@ class AvatarCard extends StatelessWidget {
                 child: Text(
                   topic,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 23,
-                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
+                    fontFamily: "SanFrancisco",
                   ),
                 ),
               ),
@@ -284,14 +198,16 @@ class AvatarCard extends StatelessWidget {
                   SizedBox(
                     width: 200,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/Call');
+                      },
                       child: Text("Start", style: TextStyle(fontSize: 17)),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        primary: color[500],
+                        primary: Colors.orange[800],
                       ),
                     ),
                   )

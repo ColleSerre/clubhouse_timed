@@ -16,56 +16,121 @@ class AndroidApp extends StatelessWidget {
           backgroundColor: HexColor("#F0F0E4"),
         ),
       ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.blueGrey[900],
-        appBarTheme: AppBarTheme(backgroundColor: Colors.grey[900]),
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(CupertinoIcons.person_crop_circle_badge_plus),
-            iconSize: 30,
-            color: Colors.black,
-            onPressed: () {},
-          ),
-          actions: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                IconButton(
-                  icon: Icon(
-                    CupertinoIcons.bell,
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Scaffold(
+              appBar: AppBar(
+                leading: Padding(
+                  padding: const EdgeInsets.only(left: 4.0),
+                  child: IconButton(
+                    icon: Icon(CupertinoIcons.person_crop_circle_badge_plus),
+                    iconSize: 35,
                     color: Colors.black,
+                    splashRadius: 25,
+                    onPressed: () {},
                   ),
-                  iconSize: 30,
-                  onPressed: () {},
                 ),
-                Positioned(
-                    bottom: 25,
-                    left: 22,
-                    child: Container(
-                      padding: const EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
+                actions: [
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          CupertinoIcons.bell,
+                          color: Colors.black,
+                        ),
+                        iconSize: 30,
+                        onPressed: () {}, //Navigator.push(notif view)
+                        splashRadius: 20,
                       ),
-                      child: Text("1"),
-                    ))
-              ],
-            ),
-            IconButton(
-              icon: CircleAvatar(
-                backgroundColor: Colors.blue,
+                      Positioned(
+                          bottom: 25,
+                          left: 22,
+                          child: Container(
+                            padding: const EdgeInsets.all(3),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Text("1"),
+                          ))
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: IconButton(
+                      icon: CircleAvatar(
+                        backgroundImage:
+                            AssetImage("assets/placeholder_image.jpg"),
+                        backgroundColor: Colors.transparent,
+                      ),
+                      iconSize: 35,
+                      splashRadius: 25,
+                      onPressed: () {},
+                    ),
+                  )
+                ],
+                elevation: 0,
               ),
-              iconSize: 30,
-              onPressed: () {},
-            )
-          ],
-          elevation: 0,
-        ),
-        body: Home(),
-      ),
+              body: Home(),
+            ),
+        '/Call': (context) => Scaffold(
+              appBar: AppBar(
+                leading: Padding(
+                  padding: const EdgeInsets.only(left: 4.0),
+                  child: IconButton(
+                    icon: Icon(CupertinoIcons.person_crop_circle_badge_plus),
+                    iconSize: 35,
+                    color: Colors.black,
+                    splashRadius: 25,
+                    onPressed: () {},
+                  ),
+                ),
+                actions: [
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      IconButton(
+                        icon: Icon(
+                          CupertinoIcons.bell,
+                          color: Colors.black,
+                        ),
+                        iconSize: 30,
+                        onPressed: () {}, //Navigator.push(notif view)
+                        splashRadius: 20,
+                      ),
+                      Positioned(
+                          bottom: 25,
+                          left: 22,
+                          child: Container(
+                            padding: const EdgeInsets.all(3),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Text("1"),
+                          ))
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: IconButton(
+                      icon: CircleAvatar(
+                        backgroundImage:
+                            AssetImage("assets/placeholder_image.jpg"),
+                        backgroundColor: Colors.transparent,
+                      ),
+                      iconSize: 35,
+                      splashRadius: 25,
+                      onPressed: () {},
+                    ),
+                  )
+                ],
+                elevation: 0,
+              ),
+              body: Call(),
+            ),
+      },
     );
   }
 }
