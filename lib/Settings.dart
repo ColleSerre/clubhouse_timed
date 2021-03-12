@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// This class gets topics from our custom api and builds the children param for the SwitchForm class before building SwitchForm
+
 class TopicList extends StatefulWidget {
-  // This class gets topics from our custom api and builds the children param for the SwitchForm class before building SwitchForm
   @override
   _TopicListState createState() => _TopicListState();
 
@@ -20,14 +20,16 @@ class _TopicListState extends State<TopicList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.only(bottom: 50, left: 20, right: 20),
-        child: CupertinoButton(
-            child: Text("Done"),
-            color: Colors.blue,
-            onPressed: () {
-              Navigator.pop(context);
-            }),
+      appBar: AppBar(
+        shadowColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
+        leading: Container(),
+        actions: [
+          CupertinoButton(
+            child: Text("Done", style: TextStyle(fontSize: 18)),
+            onPressed: () => Navigator.pop(context),
+          )
+        ],
       ),
       body: Center(
         child: FutureBuilder(
@@ -46,18 +48,22 @@ class _TopicListState extends State<TopicList> {
                   prefs.getString("topicPrefs"),
                 ),
               );
-              return SwitchForm(
-                prefs: prefs,
+              return ListView(
                 children: [
-                  for (var item in snapshot.data[1].entries)
-                    item.value
-                        ? ListSwitch(
-                            title: item.key,
-                            value: topicPrefs[item.key] == null
-                                ? false
-                                : topicPrefs[item.key],
-                          )
-                        : Container()
+                  SwitchForm(
+                    prefs: prefs,
+                    children: [
+                      for (var item in snapshot.data[1].entries)
+                        item.value
+                            ? ListSwitch(
+                                title: item.key,
+                                value: topicPrefs[item.key] == null
+                                    ? false
+                                    : topicPrefs[item.key],
+                              )
+                            : Container()
+                    ],
+                  ),
                 ],
               );
             } else {
@@ -72,8 +78,9 @@ class _TopicListState extends State<TopicList> {
   }
 }
 
+// Takes children as param and builds each child
+
 class SwitchForm extends StatefulWidget {
-  // Takes children as param and builds each child
   final children;
   final prefs;
   SwitchForm({this.children, this.prefs});
@@ -99,7 +106,7 @@ class SwitchFormState extends State<SwitchForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 30.0),
+      padding: const EdgeInsets.symmetric(horizontal: 6.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -110,8 +117,9 @@ class SwitchFormState extends State<SwitchForm> {
   }
 }
 
+// Code for individual tiles
+
 class ListSwitch extends StatefulWidget {
-  // Code for individual tiles
   final title;
   bool value;
   ListSwitch({this.title, this.value = false});

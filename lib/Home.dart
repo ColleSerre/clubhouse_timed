@@ -101,7 +101,7 @@ class HaloButtonState extends State<HaloButton>
               ),
             );
           } else {
-            return CircularProgressIndicator();
+            return Container();
           }
         });
   }
