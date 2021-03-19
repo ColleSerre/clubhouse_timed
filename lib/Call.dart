@@ -25,15 +25,15 @@ class _PreCallCountdownState extends State<PreCallCountdown> {
               padding: const EdgeInsets.only(bottom: 50.0),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.popAndPushNamed(context, "/");
+                  Navigator.pop(context);
                 },
                 child: Text("Cancel"),
                 style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     primary: Colors.red,
-                    padding: const EdgeInsets.only(
-                        left: 40, right: 40, top: 12, bottom: 12)),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 70, vertical: 17)),
               ),
             )
           ],
@@ -55,9 +55,7 @@ class _CallState extends State<Call> {
   @override
   Widget build(BuildContext context) {
     Size dimensions = MediaQuery.of(context).size;
-    return Padding(
-      padding:
-          const EdgeInsets.only(bottom: 40.0, left: 20, right: 20, top: 10),
+    return SafeArea(
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -75,7 +73,7 @@ class _CallState extends State<Call> {
               ),
               onFinished: () {},
             ),
-            Spacer(flex: 1),
+            Spacer(),
             Container(
               decoration: BoxDecoration(
                 border: Border.all(
@@ -92,44 +90,47 @@ class _CallState extends State<Call> {
                 ),
               ),
             ),
-            Spacer(flex: 2),
+            Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  decoration:
-                      BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                  child: SizedBox(
-                    height: 60,
-                    width: 60,
-                    child: IconButton(
-                        splashRadius: 35,
-                        iconSize: 30,
-                        color: Colors.white,
-                        icon: Icon(
-                          CupertinoIcons.phone_down_fill,
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        }),
+                  margin: const EdgeInsets.only(left: 15),
+                  width: MediaQuery.of(context).size.width / 2 - 25,
+                  height: 50,
+                  child: ElevatedButton(
+                    child: Icon(
+                      CupertinoIcons.phone_down_fill,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      primary: Colors.red,
+                    ),
                   ),
                 ),
                 Spacer(),
                 Container(
-                  decoration: BoxDecoration(
-                      color: micOn ? Colors.green : Colors.grey,
-                      shape: BoxShape.circle),
-                  child: SizedBox(
-                    height: 60,
-                    width: 60,
-                    child: IconButton(
-                        splashRadius: 35,
-                        iconSize: 30,
-                        color: Colors.white,
-                        icon: Icon(
-                          micOn ? Icons.mic : Icons.mic_off,
-                        ),
-                        onPressed: () => setState(() => micOn = !micOn)),
+                  margin: const EdgeInsets.only(right: 15),
+                  width: MediaQuery.of(context).size.width / 2 - 25,
+                  height: 50,
+                  child: ElevatedButton(
+                    child: Icon(
+                      micOn ? CupertinoIcons.mic : CupertinoIcons.mic_off,
+                    ),
+                    onPressed: () {
+                      setState(() => micOn = !micOn);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      primary: micOn ? Colors.green : Colors.grey,
+                    ),
                   ),
                 ),
               ],

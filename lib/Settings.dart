@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:clubhouse_timed/MenuCards.dart';
 
 // This class gets topics from our custom api and builds the children param for the SwitchForm class before building SwitchForm
 
@@ -10,7 +11,7 @@ class TopicList extends StatefulWidget {
   @override
   _TopicListState createState() => _TopicListState();
 
-  Future<Map<dynamic, dynamic>> Function() getTopics = () async {
+  final Future<Map<dynamic, dynamic>> Function() getTopics = () async {
     final db = FirebaseDatabase.instance.reference().child("Topics");
     return (await db.once().then((value) => value.value));
   };
@@ -19,60 +20,61 @@ class TopicList extends StatefulWidget {
 class _TopicListState extends State<TopicList> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        shadowColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
-        leading: Container(),
-        actions: [
-          CupertinoButton(
-            child: Text("Done", style: TextStyle(fontSize: 18)),
-            onPressed: () => Navigator.pop(context),
-          )
-        ],
-      ),
-      body: Center(
-        child: FutureBuilder(
-          future: Future.wait([
-            SharedPreferences.getInstance(),
-            widget.getTopics(),
-          ]),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              print(snapshot.error);
-              return Text("Something went wrong here...");
-            } else if (snapshot.hasData) {
-              SharedPreferences prefs = snapshot.data[0];
-              Map<String, bool> topicPrefs = Map<String, bool>.from(
-                jsonDecode(
-                  prefs.getString("topicPrefs"),
+    return Center(
+      child: FutureBuilder(
+        future: Future.wait([
+          SharedPreferences.getInstance(),
+          widget.getTopics(),
+        ]),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print(snapshot.error);
+            return Text(
+                "Smells like rotten bugs, has something gone wrong here ? 🐞 🤔");
+          } else if (snapshot.hasData) {
+            SharedPreferences prefs = snapshot.data[0];
+            final temp = prefs.getString("topicPrefs") == null
+                ? {}
+                : prefs.getString("topicPrefs");
+            Map<String, bool> topicPrefs = Map<String, bool>.from(
+              jsonDecode(temp.toString()),
+            );
+            final sortedKeys = List.from(snapshot.data[1].keys);
+            sortedKeys.sort();
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: RoomCard(
+                    color: Colors.blue,
+                    username: "Username",
+                    description: "Lorem Ipsum Dolor Sit Amet",
+                  ),
                 ),
-              );
-              return ListView(
-                children: [
-                  SwitchForm(
+                Expanded(
+                  child: SwitchForm(
                     prefs: prefs,
                     children: [
-                      for (var item in snapshot.data[1].entries)
-                        item.value
+                      for (var item in sortedKeys)
+                        snapshot.data[1][item]
                             ? ListSwitch(
-                                title: item.key,
-                                value: topicPrefs[item.key] == null
+                                title: item,
+                                value: topicPrefs[item] == null
                                     ? false
-                                    : topicPrefs[item.key],
+                                    : topicPrefs[item],
                               )
                             : Container()
                     ],
                   ),
-                ],
-              );
-            } else {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        ),
+                ),
+              ],
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       ),
     );
   }
@@ -106,12 +108,12 @@ class SwitchFormState extends State<SwitchForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          for (var listSwitch in widget.children) listSwitch,
-        ],
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+      child: GridView.count(
+        crossAxisCount: 2,
+        mainAxisSpacing: 12,
+        crossAxisSpacing: 12,
+        children: [for (var item in widget.children) item],
       ),
     );
   }
@@ -130,22 +132,31 @@ class ListSwitch extends StatefulWidget {
 class ListSwitchState extends State<ListSwitch> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-            color: Colors.grey[800], borderRadius: BorderRadius.circular(10)),
-        child: Row(
-          children: [
-            Text(widget.title),
-            Spacer(),
-            Switch(
-              value: widget.value,
-              onChanged: (newVal) => setState(() => widget.value = newVal),
-            )
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+          color: Colors.grey[900], borderRadius: BorderRadius.circular(20)),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Text(
+              widget.title,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 17),
+            ),
+          ),
+          Expanded(
+            child: Transform.scale(
+              scale: 1.5,
+              child: CupertinoSwitch(
+                value: widget.value,
+                activeColor: Colors.blue,
+                onChanged: (newVal) => setState(() => widget.value = newVal),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

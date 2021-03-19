@@ -1,4 +1,5 @@
 import 'package:clubhouse_timed/AndroidApp.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 //TODO: Implement Agora SDK
@@ -15,6 +16,12 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return AndroidApp();
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) =>
+          snapshot.connectionState == ConnectionState.done
+              ? AndroidApp()
+              : Container(),
+    );
   }
 }

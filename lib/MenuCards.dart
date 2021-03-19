@@ -4,29 +4,31 @@ import 'package:flutter/material.dart';
 // Version with title + description without CircleAvatar (more or less deprecated at this point)
 class RoomCard extends StatelessWidget {
   final MaterialColor color;
-  RoomCard({this.color});
+  final String description;
+  final String username;
+  RoomCard({this.color, this.description, this.username});
   @override
   Widget build(BuildContext context) {
     final Size dimensions = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
-        color: color[300],
-        borderRadius: BorderRadius.circular(10),
+        color: color[500],
+        borderRadius: BorderRadius.circular(15),
       ),
       child: SizedBox(
         width: dimensions.width,
-        height: dimensions.height / 4,
+        height: dimensions.height / 4.3,
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                margin: const EdgeInsets.only(bottom: 10.0),
+                margin: const EdgeInsets.only(bottom: 0),
                 child: Row(
                   children: [
                     Text(
-                      "Dev Talk",
+                      "$username",
                       style: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
@@ -35,39 +37,44 @@ class RoomCard extends StatelessWidget {
                     ),
                     Spacer(),
                     CircleAvatar(
-                      backgroundColor: color[800],
+                      backgroundColor: Colors.transparent,
+                      backgroundImage: AssetImage(
+                        "assets/placeholder_image.jpg",
+                      ),
                       radius: 25.0,
                     )
                   ],
                 ),
               ),
               Expanded(
-                child: Text(
-                  "A room where we talk about stuff related to software dev.",
-                  overflow: TextOverflow.clip,
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 200,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text("Meet Someone"),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 0,
+                      child: Text(
+                        "$description",
+                        style: TextStyle(
+                          fontSize: 18,
                         ),
-                        primary: color[600],
                       ),
                     ),
-                  )
-                ],
-              )
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue[900],
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -214,7 +221,7 @@ class AvatarCard extends StatelessWidget {
         backgroundColor: Colors.transparent,
       ),
     ];
-    // TODO: change placeholder values (15 and 16) to adapt to device dimensions
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white70,
