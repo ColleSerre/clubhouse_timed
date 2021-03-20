@@ -68,7 +68,7 @@ class _CallState extends State<Call> {
                     time.toInt().toString(),
                     style: TextStyle(fontSize: 30),
                   ),
-                  Text("Seconds Remainig", style: TextStyle(fontSize: 15)),
+                  Text("Seconds Remaining", style: TextStyle(fontSize: 15)),
                 ],
               ),
               onFinished: () {},
