@@ -20,7 +20,6 @@ jobs:
       - run: git checkout master
       - run: git pull
       - run: flutter pub get
-      - run: flutter test
       - run: flutter build apk
       - run: git add .
       - run: git commit -m build is successful
