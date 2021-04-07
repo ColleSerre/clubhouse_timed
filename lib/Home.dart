@@ -1,55 +1,38 @@
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:clubhouse_timed/Signup.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:clubhouse_timed/Settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:cupertino_icons/cupertino_icons.dart';
 
 // This class determines if user is logged in and redirects to LoginForm or HaloButton
 
 class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final FirebaseAuth auth = FirebaseAuth.instance;
-
-    return Scaffold(
-      body: StreamBuilder(
-          stream: auth.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Center(child: Text(snapshot.error));
-            } else if (snapshot.connectionState == ConnectionState.active) {
-              try {
-                snapshot.data.reload();
-              } catch (e) {
-                debugPrint("User is not logged in");
-              }
-              if (snapshot.data == null) {
-                return LoginForm();
-              } else {
-                return FutureBuilder(
-                    future: FirebaseDatabase.instance
-                        .reference()
-                        .child("Users")
-                        .child(snapshot.data.uid)
-                        .once(),
-                    builder: (context, dbSnapshot) {
-                      if (dbSnapshot.connectionState == ConnectionState.done) {
-                        Map userData = dbSnapshot.data.value;
-                        return userData["Instagram"] == false &&
-                                userData["Snapchat"] == false
-                            ? SocialLogin()
-                            : HaloButton();
-                      } else {
-                        return Center(child: CircularProgressIndicator());
-                      }
-                    });
-              }
-            } else {
-              return Container();
+    bool additionalInfo = true;
+    return StreamBuilder(
+        stream: auth.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text(snapshot.error));
+          } else if (snapshot.connectionState == ConnectionState.active) {
+            try {
+              snapshot.data.reload();
+            } catch (e) {
+              additionalInfo = true;
             }
-          }),
-    );
+            if (snapshot.data == null) {
+              return LoginForm(warning: additionalInfo);
+            } else {
+              return InstagramLogin(); // Changed before commmit
+            }
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        });
   }
 }
 

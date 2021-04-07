@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:clubhouse_timed/Call.dart';
 import 'package:clubhouse_timed/Settings.dart';
 import 'package:clubhouse_timed/Notifications.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class AndroidApp extends StatelessWidget {
   @override
@@ -32,10 +31,9 @@ class AndroidApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Home(),
-        '/Login': (context) => LoginForm(),
         '/PreCallCountdown': (context) => PreCallCountdown(),
         '/Call': (context) => Call(),
-        '/TopicList': (context) => TopicList(),
+        '/auth/instagram': (context) => InstagramLogin(),
         '/Notifs': (context) => Notifications(),
       },
     );
