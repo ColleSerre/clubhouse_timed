@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:clubhouse_timed/Settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:cupertino_icons/cupertino_icons.dart';
 
-// This class determines if user is logged in and redirects to LoginForm or HaloButton
+// This class determines if user is logged in and redirects to Login or HaloButton
 
 class Home extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -39,6 +37,21 @@ class Home extends StatelessWidget {
 // Main Menu View
 
 class HaloButton extends StatefulWidget {
+  Future<Map<dynamic, dynamic>> getTopics() async {
+    final db = FirebaseDatabase.instance.reference().child("Topics");
+    return (await db.once().then((value) => value.value));
+  }
+
+  List validate(topicMap) {
+    List validatedTopicList = [];
+    for (var item in topicMap.entries) {
+      if (item.value) {
+        validatedTopicList.add(item.key);
+      }
+    }
+    return validatedTopicList;
+  }
+
   @override
   HaloButtonState createState() => HaloButtonState();
 }
@@ -47,11 +60,9 @@ class HaloButtonState extends State<HaloButton>
     with SingleTickerProviderStateMixin {
   AnimationController controller;
   Animation<double> animation;
-  ColorTween colorTween;
-  bool clicked;
+  int selected = 0;
   void initState() {
     super.initState();
-    clicked = false;
     controller = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
@@ -70,17 +81,63 @@ class HaloButtonState extends State<HaloButton>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: Duration(milliseconds: 2000),
-      curve: Curves.fastLinearToSlowEaseIn,
-      color: clicked ? HexColor("#e4dbce") : HexColor("#1B2431"),
-      child: FutureBuilder(
-          future: SharedPreferences.getInstance(),
+    return Scaffold(
+      drawer: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Drawer(
+          child: Container(
+            child: ListView(
+              children: [
+                ListTile(
+                  title: Text("Username", style: TextStyle(fontSize: 20)),
+                  leading: CircleAvatar(
+                    backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+                    backgroundColor: Colors.transparent,
+                  ),
+                ),
+                Divider(),
+                ListTile(
+                  title: Text("Notifications", style: TextStyle(fontSize: 18)),
+                  leading: Padding(
+                    padding: const EdgeInsets.only(left: 4.0, bottom: 3.0),
+                    child: Icon(Icons.notifications_none_sharp, size: 30),
+                  ),
+                  trailing: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.red),
+                    child: Text(
+                      "1",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  title: Text("Conversation Topics",
+                      style: TextStyle(fontSize: 18)),
+                  leading: Padding(
+                    padding: const EdgeInsets.only(left: 7.5, bottom: 3.0),
+                    child: Icon(Icons.messenger_sharp),
+                  ),
+                  onTap: () => Navigator.popAndPushNamed(context, "/TopicList"),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      appBar: AppBar(
+        shadowColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
+      ),
+      body: FutureBuilder(
+          future: Future.wait(
+              [SharedPreferences.getInstance(), widget.getTopics()]),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return Center(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ScaleTransition(
                       scale: animation,
@@ -88,33 +145,22 @@ class HaloButtonState extends State<HaloButton>
                         height: 200,
                         width: 200,
                         decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color:
-                                  clicked ? Colors.white : HexColor("#1E488F"),
-                              blurRadius: 40,
-                            )
-                          ],
-                        ),
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(color: Colors.white60, blurRadius: 15)
+                            ]),
                         child: ElevatedButton(
-                            onPressed: () async {
-                              setState(() => clicked = true);
-                              print(snapshot.data[0]);
-                              Future.delayed(Duration(milliseconds: 600))
-                                  .then((value) {
-                                Navigator.pushNamed(context, "/Call").then(
-                                    (value) => setState(() => clicked = false));
-                              });
+                            onPressed: () {
+                              print(widget.validate(snapshot.data[1]));
+                              Navigator.pushNamed(context, "/PreCallCountdown");
                             },
                             child: Icon(
-                              CupertinoIcons.power,
+                              Icons.power_settings_new_sharp,
+                              color: Colors.black,
                               size: 45,
-                              color: clicked ? Colors.black : Colors.white,
                             ),
                             style: ElevatedButton.styleFrom(
-                              primary:
-                                  clicked ? Colors.white : HexColor("#016795"),
+                              primary: Colors.white,
                               shape: CircleBorder(),
                             )),
                       ),
