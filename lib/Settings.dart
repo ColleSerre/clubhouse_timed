@@ -121,6 +121,7 @@ class SwitchFormState extends State<SwitchForm> {
 
 // Code for individual tiles
 
+// ignore: must_be_immutable
 class ListSwitch extends StatefulWidget {
   final title;
   bool value;

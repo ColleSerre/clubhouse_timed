@@ -21,7 +21,13 @@ class MyApp extends StatelessWidget {
       builder: (context, snapshot) =>
           snapshot.connectionState == ConnectionState.done
               ? AndroidApp()
-              : Container(),
+              : MaterialApp(
+                  home: Scaffold(
+                    body: Center(
+                      child: Text("Starting up (this shouldn't take long)..."),
+                    ),
+                  ),
+                ),
     );
   }
 }
