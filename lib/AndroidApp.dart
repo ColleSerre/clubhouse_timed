@@ -26,13 +26,10 @@ class AndroidApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Home(),
-        '/PreCallCountdown': (context) => App(
-              content: PreCallCountdown(),
-            ),
-        '/Call': (context) => App(
-              content: Call(),
-            ),
         '/auth/instagram': (context) => InstagramLogin(),
+        '/Login': (context) => LoginForm(),
+        '/PreCallCountdown': (context) => PreCallCountdown(),
+        '/Call': (context) => Call(),
         '/Notifs': (context) => Notifications(),
       },
     );
