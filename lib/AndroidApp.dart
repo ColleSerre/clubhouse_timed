@@ -5,7 +5,6 @@ import 'package:clubhouse_timed/Call.dart';
 import 'package:clubhouse_timed/commons.dart';
 import 'package:clubhouse_timed/Settings.dart';
 import 'package:clubhouse_timed/Notifications.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 class AndroidApp extends StatelessWidget {
   @override
@@ -33,10 +32,7 @@ class AndroidApp extends StatelessWidget {
         '/Call': (context) => App(
               content: Call(),
             ),
-        '/TopicList': (context) => App(
-              content: TopicList(),
-              doneButton: true,
-            ),
+        '/auth/instagram': (context) => InstagramLogin(),
         '/Notifs': (context) => Notifications(),
       },
     );

@@ -1,9 +1,8 @@
 import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:clubhouse_timed/Settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // This class determines if user is logged in and redirects to Login or HaloButton
@@ -26,84 +25,12 @@ class Home extends StatelessWidget {
             if (snapshot.data == null) {
               return LoginForm(warning: additionalInfo);
             } else {
-              return HaloButton();
+              return InstagramLogin(); // Changed before commmit
             }
           } else {
             return Center(child: CircularProgressIndicator());
           }
         });
-  }
-}
-
-// Shows if user isn't logged in
-
-class LoginForm extends StatefulWidget {
-  final bool warning;
-  LoginForm({this.warning});
-  @override
-  _LoginFormState createState() => _LoginFormState();
-}
-
-class _LoginFormState extends State<LoginForm> {
-  GoogleSignIn _googleSignIn = GoogleSignIn();
-  FirebaseAuth auth = FirebaseAuth.instance;
-  void login() async {
-    final user = await _googleSignIn.signIn();
-    final googleAuth = await user.authentication;
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    await auth.signInWithCredential(credential);
-    Navigator.popAndPushNamed(context, "/");
-  }
-
-  @override
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "If you're seeing this, your account has been temporarily disabled or permanently deleted.... \n\nIf you feel like we've made a mistake, feel free to contact us on social media",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 17),
-                ),
-              ),
-              Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 12.0),
-                child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Wrap(
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      Image.asset(
-                          "assets/google_icon.png"), // <-- Use 'Image.asset(...)' here
-                      SizedBox(width: 12),
-                      Text(
-                        'Sign in with Google',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
 

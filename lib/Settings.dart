@@ -1,162 +1,154 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:clubhouse_timed/MenuCards.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
-// This class gets topics from our custom api and builds the children param for the SwitchForm class before building SwitchForm
-
-class TopicList extends StatefulWidget {
+class LoginForm extends StatefulWidget {
+  final bool warning;
+  LoginForm({this.warning});
   @override
-  _TopicListState createState() => _TopicListState();
-
-  final Future<Map<dynamic, dynamic>> Function() getTopics = () async {
-    final db = FirebaseDatabase.instance.reference().child("Topics");
-    return (await db.once().then((value) => value.value));
-  };
+  _LoginFormState createState() => _LoginFormState();
 }
 
-class _TopicListState extends State<TopicList> {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: FutureBuilder(
-        future: Future.wait([
-          SharedPreferences.getInstance(),
-          widget.getTopics(),
-        ]),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            print(snapshot.error);
-            return Text(
-                "Smells like rotten bugs, has something gone wrong here ? 🐞 🤔");
-          } else if (snapshot.hasData) {
-            SharedPreferences prefs = snapshot.data[0];
-            final temp = prefs.getString("topicPrefs") == null
-                ? {}
-                : prefs.getString("topicPrefs");
-            Map<String, bool> topicPrefs = Map<String, bool>.from(
-              jsonDecode(temp.toString()),
-            );
-            final sortedKeys = List.from(snapshot.data[1].keys);
-            sortedKeys.sort();
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: RoomCard(
-                    color: Colors.blue,
-                    username: "Username",
-                    description: "Lorem Ipsum Dolor Sit Amet",
-                  ),
-                ),
-                Expanded(
-                  child: SwitchForm(
-                    prefs: prefs,
-                    children: [
-                      for (var item in sortedKeys)
-                        snapshot.data[1][item]
-                            ? ListSwitch(
-                                title: item,
-                                value: topicPrefs[item] == null
-                                    ? false
-                                    : topicPrefs[item],
-                              )
-                            : Container()
-                    ],
-                  ),
-                ),
-              ],
-            );
-          } else {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-      ),
+class _LoginFormState extends State<LoginForm> {
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+  FirebaseAuth auth = FirebaseAuth.instance;
+  void login() async {
+    final user = await _googleSignIn.signIn();
+    final googleAuth = await user.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
     );
+    await auth.signInWithCredential(credential);
+    Navigator.popAndPushNamed(context, "/");
   }
-}
 
-// Takes children as param and builds each child
-
-class SwitchForm extends StatefulWidget {
-  final children;
-  final prefs;
-  SwitchForm({this.children, this.prefs});
   @override
-  SwitchFormState createState() => SwitchFormState();
-}
-
-class SwitchFormState extends State<SwitchForm> {
-  void dispose() {
-    super.dispose();
-    Map<String, bool> tempPreferences = {};
-    for (var item in widget.children) {
-      try {
-        tempPreferences[item.title] = item.value;
-      } catch (e) {
-        print("A Container placeholding for a disabled subject was found");
-      }
-    }
-    SharedPreferences prefs = widget.prefs;
-    prefs.setString('topicPrefs', jsonEncode(tempPreferences));
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-      child: GridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 12,
-        crossAxisSpacing: 12,
-        children: [for (var item in widget.children) item],
-      ),
-    );
-  }
-}
-
-// Code for individual tiles
-
-class ListSwitch extends StatefulWidget {
-  final title;
-  bool value;
-  ListSwitch({this.title, this.value = false});
-  @override
-  ListSwitchState createState() => ListSwitchState();
-}
-
-class ListSwitchState extends State<ListSwitch> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-          color: Colors.grey[900], borderRadius: BorderRadius.circular(20)),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Text(
-              widget.title,
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 17),
-            ),
-          ),
-          Expanded(
-            child: Transform.scale(
-              scale: 1.5,
-              child: CupertinoSwitch(
-                value: widget.value,
-                activeColor: Colors.blue,
-                onChanged: (newVal) => setState(() => widget.value = newVal),
+    return Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "If you're seeing this, your account has been temporarily disabled or permanently deleted.... \n\nIf you feel like we've made a mistake, feel free to contact us on social media",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 17),
+                ),
               ),
-            ),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: GestureDetector(
+                  onTap: () => login(),
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        Image.asset(
+                            "assets/google_icon.png"), // <-- Use 'Image.asset(...)' here
+                        SizedBox(width: 12),
+                        Text(
+                          'Sign in with Google',
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
+      ),
+    );
+  }
+}
+
+class InstagramLogin extends StatelessWidget {
+  static const client_id = 151197196914082;
+  List<String> uris = [];
+  int count = 0;
+  final url =
+      "https://api.instagram.com/oauth/authorize?client_id=$client_id&redirect_uri=https://colleserre.github.io/InstagramAuthRedirectionURL/index.html&scope=user_profile&response_type=code";
+  @override
+  Widget build(BuildContext context) {
+    // ignore: cancel_subscriptions
+    final flutterWebviewPlugin = new FlutterWebviewPlugin();
+    flutterWebviewPlugin.onUrlChanged.listen((event) async {
+      uris.add(event);
+      count++;
+      print(count);
+      if (count >= 3) {
+        final client = http.Client();
+        client.post(
+          Uri.parse("https://api.instagram.com/oauth/access_token"),
+          body: {
+            "client_id": client_id.toString(),
+            "client_secret": "4c90f7db7c8d7460831451d48085b4eb",
+            "grant_type": "authorization_code",
+            "redirect_uri":
+                "https://colleserre.github.io/InstagramAuthRedirectionURL/index.html",
+            "code": Uri.parse(uris.last).queryParameters["code"],
+          }, // SECRET REMOVE BEFORE COMMIT,
+        ).then((response) {
+          final json = jsonDecode(response.body);
+          final accessToken = json["access_token"];
+          final userID = json["user_id"];
+          client
+              .get(Uri.parse(
+                  "https://graph.instagram.com/$userID?fields=username&access_token=$accessToken"))
+              .then((profile) {
+            final String username = jsonDecode(profile.body)["username"];
+            FirebaseDatabase.instance
+                .reference()
+                .child("Users")
+                .child(FirebaseAuth.instance.currentUser.uid)
+                .child("Usernames")
+                .update({"Instagram": username}).whenComplete(
+              () => Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SuccessfulLogin(
+                    username,
+                  ),
+                ),
+              ),
+            );
+          });
+        });
+      }
+    });
+    return WebviewScaffold(
+      url: url,
+      appCacheEnabled: true,
+    );
+  }
+}
+
+class SuccessfulLogin extends StatelessWidget {
+  String username = "";
+  SuccessfulLogin(this.username);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text(username),
       ),
     );
   }
