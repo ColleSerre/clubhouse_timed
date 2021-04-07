@@ -29,6 +29,7 @@ class AndroidApp extends StatelessWidget {
         '/': (context) => Home(),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> parent of fe1c52c... syncing macbook changes
         '/PreCallCountdown': (context) => App(
@@ -40,10 +41,13 @@ class AndroidApp extends StatelessWidget {
 <<<<<<< HEAD
         '/auth/instagram': (context) => InstagramLogin(),
 =======
+=======
+>>>>>>> parent of e776479... Merge branch 'master' of https://github.com/ColleSerre/clubhouse_timed
         '/Login': (context) => LoginForm(),
         '/PreCallCountdown': (context) => PreCallCountdown(),
         '/Call': (context) => Call(),
         '/TopicList': (context) => TopicList(),
+<<<<<<< HEAD
 >>>>>>> parent of e776479... Merge branch 'master' of https://github.com/ColleSerre/clubhouse_timed
 =======
         '/TopicList': (context) => App(
@@ -51,6 +55,8 @@ class AndroidApp extends StatelessWidget {
               doneButton: true,
             ),
 >>>>>>> parent of fe1c52c... syncing macbook changes
+=======
+>>>>>>> parent of e776479... Merge branch 'master' of https://github.com/ColleSerre/clubhouse_timed
         '/Notifs': (context) => Notifications(),
       },
     );

@@ -4,9 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:clubhouse_timed/MenuCards.dart';
+<<<<<<< HEAD
 
 // This class gets topics from our custom api and builds the children param for the SwitchForm class before building SwitchForm
 
+=======
+
+// This class gets topics from our custom api and builds the children param for the SwitchForm class before building SwitchForm
+
+>>>>>>> parent of e776479... Merge branch 'master' of https://github.com/ColleSerre/clubhouse_timed
 class TopicList extends StatefulWidget {
   @override
   _TopicListState createState() => _TopicListState();
@@ -120,10 +126,13 @@ class SwitchFormState extends State<SwitchForm> {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 class SuccessfulLogin extends StatelessWidget {
   String username = "";
   SuccessfulLogin(this.username);
 =======
+=======
+>>>>>>> parent of e776479... Merge branch 'master' of https://github.com/ColleSerre/clubhouse_timed
 // Code for individual tiles
 
 class ListSwitch extends StatefulWidget {
@@ -135,6 +144,9 @@ class ListSwitch extends StatefulWidget {
 }
 
 class ListSwitchState extends State<ListSwitch> {
+<<<<<<< HEAD
+>>>>>>> parent of e776479... Merge branch 'master' of https://github.com/ColleSerre/clubhouse_timed
+=======
 >>>>>>> parent of e776479... Merge branch 'master' of https://github.com/ColleSerre/clubhouse_timed
   @override
   Widget build(BuildContext context) {

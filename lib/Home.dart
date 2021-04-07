@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import 'package:firebase_database/firebase_database.dart';
 <<<<<<< HEAD
 import 'package:clubhouse_timed/Settings.dart';
@@ -17,6 +18,14 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 >>>>>>> parent of fe1c52c... syncing macbook changes
+=======
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:clubhouse_timed/Signup.dart';
+import 'package:hexcolor/hexcolor.dart';
+>>>>>>> parent of e776479... Merge branch 'master' of https://github.com/ColleSerre/clubhouse_timed
 import 'package:shared_preferences/shared_preferences.dart';
 
 // This class determines if user is logged in and redirects to Login or HaloButton
@@ -24,27 +33,49 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final FirebaseAuth auth = FirebaseAuth.instance;
-    bool additionalInfo = true;
-    return StreamBuilder(
-        stream: auth.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Center(child: Text(snapshot.error));
-          } else if (snapshot.connectionState == ConnectionState.active) {
-            try {
-              snapshot.data.reload();
-            } catch (e) {
-              additionalInfo = true;
-            }
-            if (snapshot.data == null) {
-              return LoginForm(warning: additionalInfo);
+
+    return Scaffold(
+      body: StreamBuilder(
+          stream: auth.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text(snapshot.error));
+            } else if (snapshot.connectionState == ConnectionState.active) {
+              try {
+                snapshot.data.reload();
+              } catch (e) {
+                debugPrint("User is not logged in");
+              }
+              if (snapshot.data == null) {
+                return LoginForm();
+              } else {
+                return FutureBuilder(
+                    future: FirebaseDatabase.instance
+                        .reference()
+                        .child("Users")
+                        .child(snapshot.data.uid)
+                        .once(),
+                    builder: (context, dbSnapshot) {
+                      if (dbSnapshot.connectionState == ConnectionState.done) {
+                        Map userData = dbSnapshot.data.value;
+                        return userData["Instagram"] == false &&
+                                userData["Snapchat"] == false
+                            ? SocialLogin()
+                            : HaloButton();
+                      } else {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                    });
+              }
             } else {
+<<<<<<< HEAD
               return HaloButton();
+=======
+              return Container();
+>>>>>>> parent of e776479... Merge branch 'master' of https://github.com/ColleSerre/clubhouse_timed
             }
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        });
+          }),
+    );
   }
 }
 
