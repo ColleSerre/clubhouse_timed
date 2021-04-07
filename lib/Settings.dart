@@ -141,9 +141,24 @@ class InstagramLogin extends StatelessWidget {
   }
 }
 
+<<<<<<< HEAD
+// Code for individual tiles
+
+// ignore: must_be_immutable
+class ListSwitch extends StatefulWidget {
+  final title;
+  bool value;
+  ListSwitch({this.title, this.value = false});
+  @override
+  ListSwitchState createState() => ListSwitchState();
+}
+
+class ListSwitchState extends State<ListSwitch> {
+=======
 class SuccessfulLogin extends StatelessWidget {
   String username = "";
   SuccessfulLogin(this.username);
+>>>>>>> d7527c9542ac8bb5c93b914b4928dd4c39566dc2
   @override
   Widget build(BuildContext context) {
     return Scaffold(

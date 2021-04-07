@@ -85,143 +85,141 @@ class RoomCard extends StatelessWidget {
 
 // Version with CircleAvatar only (more original, a lot less like Clubhouse)
 class AvatarCard extends StatelessWidget {
-  List<Widget> avatarArr;
+  final List<Widget> avatarArr = [
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+    CircleAvatar(
+      backgroundImage: AssetImage("assets/placeholder_image.jpg"),
+      backgroundColor: Colors.transparent,
+    ),
+  ];
   final String topic;
   final Random random = new Random();
   AvatarCard({this.topic});
   @override
   Widget build(BuildContext context) {
-    avatarArr = [
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-      CircleAvatar(
-        backgroundImage: AssetImage("assets/placeholder_image.jpg"),
-        backgroundColor: Colors.transparent,
-      ),
-    ];
-
     return Container(
       decoration: BoxDecoration(
         color: Colors.white70,
