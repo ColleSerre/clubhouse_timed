@@ -100,7 +100,7 @@ class InstagramLogin extends StatelessWidget {
           Uri.parse("https://api.instagram.com/oauth/access_token"),
           body: {
             "client_id": client_id.toString(),
-            "client_secret": "4c90f7db7c8d7460831451d48085b4eb",
+            "client_secret": "",
             "grant_type": "authorization_code",
             "redirect_uri":
                 "https://colleserre.github.io/InstagramAuthRedirectionURL/index.html",

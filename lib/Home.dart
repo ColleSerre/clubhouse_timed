@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
             if (snapshot.data == null) {
               return LoginForm(warning: additionalInfo);
             } else {
-              return InstagramLogin(); // Changed before commmit
+              return InstagramLogin(); // Change before commmit
             }
           } else {
             return Center(child: CircularProgressIndicator());
