@@ -5,6 +5,7 @@ import 'package:clubhouse_timed/Call.dart';
 import 'package:clubhouse_timed/commons.dart';
 import 'package:clubhouse_timed/Settings.dart';
 import 'package:clubhouse_timed/Notifications.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class AndroidApp extends StatelessWidget {
   @override
@@ -26,6 +27,7 @@ class AndroidApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Home(),
+<<<<<<< HEAD
         '/PreCallCountdown': (context) => App(
               content: PreCallCountdown(),
             ),
@@ -33,6 +35,12 @@ class AndroidApp extends StatelessWidget {
               content: Call(),
             ),
         '/auth/instagram': (context) => InstagramLogin(),
+=======
+        '/Login': (context) => LoginForm(),
+        '/PreCallCountdown': (context) => PreCallCountdown(),
+        '/Call': (context) => Call(),
+        '/TopicList': (context) => TopicList(),
+>>>>>>> parent of e776479... Merge branch 'master' of https://github.com/ColleSerre/clubhouse_timed
         '/Notifs': (context) => Notifications(),
       },
     );
