@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:clubhouse_timed/Call.dart';
 import 'package:clubhouse_timed/Settings.dart';
-import 'package:clubhouse_timed/Notifications.dart';
 
 class AndroidApp extends StatelessWidget {
   @override
@@ -17,19 +16,14 @@ class AndroidApp extends StatelessWidget {
             bodyText2: TextStyle(color: Colors.white, fontSize: 15),
             headline4: TextStyle(color: Colors.white)),
         brightness: Brightness.dark,
-        // scaffoldBackgroundColor: HexColor("#F0F0E4"),
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.transparent,
-        ),
+        scaffoldBackgroundColor: Colors.transparent,
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => Home(),
-        '/auth/instagram': (context) => InstagramLogin(),
-        '/Login': (context) => LoginForm(),
-        '/PreCallCountdown': (context) => PreCallCountdown(),
-        '/Call': (context) => Call(),
-        '/Notifs': (context) => Notifications(),
+        '/': (context) => Init(),
+        '/auth/instagram': (context) => InstagramLoginView(),
+        '/login': (context) => InitialSignUpFlow(),
+        '/call': (context) => Call(),
       },
     );
   }
